@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa6";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 const projects = [
   {
-    title: "Fintech Dashboard",
+    title: "2048-SDL",
     description:
       "A comprehensive financial analytics platform with real-time data visualization, portfolio management, and AI-powered insights.",
     image: "/projects/project1.png",
@@ -12,7 +12,7 @@ const projects = [
     github: "#",
   },
   {
-    title: "E-Commerce Platform",
+    title: "Assembley-Calculator ",
     description:
       "A full-featured e-commerce solution with inventory management, payment processing, and analytics dashboard.",
     image: "/projects/project2.png",
@@ -21,7 +21,7 @@ const projects = [
     github: "#",
   },
   {
-    title: "AI Writing Assistant",
+    title: "SummarAI",
     description:
       "An intelligent writing tool powered by GPT-4, helping users create better content faster.",
     image: "/projects/project3.png",
@@ -35,6 +35,15 @@ const projects = [
       "A collaborative workspace for teams with real-time updates, task tracking, and integrations.",
     image: "/projects/project4.png",
     tags: ["Next.js", "Socket.io", "MongoDB", "Redis"],
+    link: "#",
+    github: "#",
+  },
+   {
+    title: "Assembley-Calculator ",
+    description:
+      "A full-featured e-commerce solution with inventory management, payment processing, and analytics dashboard.",
+    image: "/projects/project2.png",
+    tags: ["Next.js", "Stripe", "PostgreSQL", "Tailwind"],
     link: "#",
     github: "#",
   },
