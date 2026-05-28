@@ -71,7 +71,7 @@ export const About = () => {
               <span className="section-label">About Me</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight reveal reveal-delay-1">
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight reveal reveal-delay-1">
               <span className="text-secondary-foreground">Building the future,</span>
               <span className="font-serif italic font-normal text-white/90">
                 {" "}one component at a time.

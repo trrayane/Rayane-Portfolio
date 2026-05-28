@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/Button";
-import { ArrowRight, ChevronDown, Download, Terminal } from "lucide-react";
+import { ArrowRight, ChevronDown, Download, Terminal, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
 
@@ -46,14 +46,15 @@ const terminalLines = [
   { type: "cmd",  text: "whoami" },
   { type: "out",  text: "rayane@terki  →  Full-Stack Engineer" },
   { type: "gap" },
-  { type: "cmd",  text: "cat skills.json" },
-  { type: "json", text: "[" },
-  { type: "json", text: '  "React", "Next.js", "TypeScript",' },
-  { type: "json", text: '  "Node.js", "Python", "Docker", "AWS"' },
-  { type: "json", text: "]" },
+  { type: "cmd",  text: "cat stack.json" },
+  { type: "json", text: "{" },
+  { type: "json", text: '  "frontend": ["React", "Next.js", "TS"],' },
+  { type: "json", text: '  "backend":  ["Node", "Python", "NestJS"],' },
+  { type: "json", text: '  "infra":    ["Docker", "AWS", "Linux"]' },
+  { type: "json", text: "}" },
   { type: "gap" },
-  { type: "cmd",  text: "git status" },
-  { type: "ok",   text: "✓  open_to_work: true" },
+  { type: "cmd",  text: "git status --porcelain" },
+  { type: "ok",   text: "open_to_work: true" },
 ];
 
 const TerminalCard = () => {
@@ -123,15 +124,6 @@ const TerminalCard = () => {
   );
 };
 
-// ── Skills marquee ──────────────────────────────────────────────────────────
-const skills = [
-  "React", "Next.js", "TypeScript", "Tailwind CSS",
-  "Node.js", "Express.js", "NestJS", "Django", "FastAPI", "Laravel",
-  "PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma",
-  "REST APIs", "GraphQL", "WebSockets", "JWT", "OAuth2",
-  "Docker", "Nginx", "GitHub Actions", "AWS", "Vercel", "Linux",
-];
-
 // ── Component ───────────────────────────────────────────────────────────────
 export const Hero = () => {
   const typedRole = useTypewriter(roles);
@@ -152,20 +144,20 @@ export const Hero = () => {
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Floating particles */}
+      {/* Floating particles — quieter */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 24 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={i}
             className="absolute rounded-full"
             style={{
-              width:  i % 5 === 0 ? "4px" : "2px",
-              height: i % 5 === 0 ? "4px" : "2px",
-              backgroundColor: i % 7 === 0 ? "#a855f7" : "#22d3b8",
-              opacity: 0.4 + Math.random() * 0.4,
+              width:  i % 5 === 0 ? "3px" : "2px",
+              height: i % 5 === 0 ? "3px" : "2px",
+              backgroundColor: i % 6 === 0 ? "#a855f7" : "#22d3b8",
+              opacity: 0.25 + Math.random() * 0.25,
               left:  `${Math.random() * 100}%`,
               top:   `${Math.random() * 100}%`,
-              animation: `slow-drift ${16 + Math.random() * 18}s ease-in-out infinite`,
+              animation: `slow-drift ${20 + Math.random() * 18}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 6}s`,
             }}
           />
@@ -188,14 +180,14 @@ export const Hero = () => {
                 <span className="text-primary font-medium">Available for new projects</span>
               </span>
               <span className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-full glass text-xs border border-border/40 text-muted-foreground">
-                <span className="text-base">📍</span>
+                <MapPin className="w-3.5 h-3.5 text-primary/70" />
                 Based in Algeria — Remote worldwide
               </span>
             </div>
 
             {/* Heading */}
-            <div className="space-y-3 animate-fade-in animation-delay-100">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+            <div className="space-y-5 animate-fade-in animation-delay-100">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
                 Crafting{" "}
                 <span className="gradient-text glow-text">digital</span>
                 <br />
@@ -206,15 +198,16 @@ export const Hero = () => {
                 </span>
               </h1>
 
-              {/* Typewriter role */}
-              <div className="flex items-center gap-2 h-8">
-                <span className="text-lg text-muted-foreground font-mono">
-                  {">"}&nbsp;
+              {/* Typewriter role — inside subtle pill */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass border border-primary/15 max-w-fit">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                  Role
                 </span>
-                <span className="text-lg font-mono text-primary font-medium">
+                <span className="w-px h-3 bg-border/60" />
+                <span className="text-sm font-mono text-primary font-medium min-w-0">
                   {typedRole}
                 </span>
-                <span className="w-0.5 h-5 bg-primary animate-blink rounded-full" />
+                <span className="w-0.5 h-3.5 bg-primary animate-blink rounded-full" />
               </div>
             </div>
 
@@ -238,8 +231,29 @@ export const Hero = () => {
               </AnimatedBorderButton>
             </div>
 
+            {/* Inline stats strip */}
+            <div className="flex items-center gap-6 pt-2 animate-fade-in animation-delay-400">
+              {[
+                { value: "2+",  label: "Years" },
+                { value: "30+", label: "Projects" },
+                { value: "20+", label: "Stack" },
+              ].map((s, i) => (
+                <div key={s.label} className="flex items-center gap-6">
+                  <div>
+                    <div className="text-2xl font-bold text-foreground leading-none">
+                      {s.value}
+                    </div>
+                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1.5 font-medium">
+                      {s.label}
+                    </div>
+                  </div>
+                  {i < 2 && <span className="w-px h-9 bg-border/60" />}
+                </div>
+              ))}
+            </div>
+
             {/* Social */}
-            <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
+            <div className="flex items-center gap-4 animate-fade-in animation-delay-500">
               <span className="text-xs text-muted-foreground uppercase tracking-widest">
                 Find me on
               </span>
@@ -263,80 +277,19 @@ export const Hero = () => {
           </div>
 
           {/* ── RIGHT ─────────────────────────────────────── */}
-          <div className="flex flex-col gap-5 animate-fade-in animation-delay-300">
-
-            {/* Photo card */}
-            <div className="relative max-w-sm mx-auto lg:mx-0 lg:ml-auto w-full">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/30 via-accent/10 to-primary/5 blur-2xl" />
-              <div className="relative glass rounded-3xl p-2 glow-border">
-                <img
-                  src="/projects/IMG_1351.jpg"
-                  alt="Rayane Terki"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
-
-                {/* Badge — available */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float border border-border/50 shadow-xl">
-                  <div className="flex items-center gap-2.5">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                      <span className="relative rounded-full h-2.5 w-2.5 bg-emerald-500" />
-                    </span>
-                    <span className="text-sm font-medium">Available for work</span>
-                  </div>
-                </div>
-
-                {/* Badge — experience */}
-                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500 border border-primary/20 shadow-xl">
-                  <div className="text-2xl font-bold gradient-text">2+</div>
-                  <div className="text-xs text-muted-foreground">Years Exp.</div>
-                </div>
-              </div>
-            </div>
+          <div className="relative animate-fade-in animation-delay-300">
+            {/* Soft glow behind terminal */}
+            <div className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-accent/5 to-transparent blur-3xl pointer-events-none" />
 
             {/* Terminal card */}
-            <div className="max-w-sm mx-auto lg:mx-0 lg:ml-auto w-full animate-fade-in animation-delay-500">
+            <div className="relative max-w-md mx-auto lg:mx-0 lg:ml-auto w-full">
               <TerminalCard />
             </div>
           </div>
         </div>
 
-        {/* ── SKILLS MARQUEE ──────────────────────────────── */}
-        <div className="mt-24 animate-fade-in animation-delay-600">
-          <p className="text-xs text-muted-foreground mb-6 text-center uppercase tracking-widest font-medium">
-            Technologies I work with
-          </p>
-          <div className="relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-            <div className="flex animate-marquee">
-              {[...skills, ...skills].map((skill, idx) => (
-                <div
-                  key={idx}
-                  className="flex-shrink-0 px-6 py-3 mx-1 rounded-full glass border border-border/40 hover:border-primary/30 hover:text-primary transition-all duration-300 cursor-default"
-                >
-                  <span className="text-sm font-medium text-muted-foreground/70 hover:text-primary whitespace-nowrap transition-colors">
-                    {skill}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-800">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-        >
-          <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
-          <div className="w-5 h-8 rounded-full border border-muted-foreground/30 group-hover:border-primary/50 flex items-start justify-center pt-1.5 transition-colors">
-            <div className="w-1 h-2 bg-muted-foreground group-hover:bg-primary rounded-full animate-bounce transition-colors" />
-          </div>
-        </a>
-      </div>
     </section>
   );
 };

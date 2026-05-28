@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, ExternalLink, Star, X, Clock, Eye } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Star, X, Clock, Eye, Bell, Home, ChevronLeft, ChevronRight, Lock } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 
 const projects = [
+  {
+    title: "Healy",
+    description:
+      "An intelligent health platform that helps users track symptoms, get AI-driven health insights, and connect with practitioners in real time. Features a secure patient dashboard, ML-powered recommendations, appointment scheduling, and end-to-end encrypted medical records.",
+    shortDesc: "AI-powered health platform with smart insights & real-time consultations.",
+    image: "/projects/healy.png",
+    tags: ["React", "Python", "AI / ML", "FastAPI", "PostgreSQL"],
+    link: "#",
+    github: "#",
+    featured: true,
+  },
   {
     title: "2048-SDL",
     description:
@@ -13,7 +24,6 @@ const projects = [
     tags: ["C", "SDL2", "Game Dev", "Algorithms"],
     link: "#",
     github: "https://github.com/trrayane",
-    featured: true,
   },
   {
     title: "Assembly Calculator",
@@ -28,12 +38,13 @@ const projects = [
   {
     title: "SummarAI",
     description:
-      "An intelligent text summarisation web app powered by LLM APIs (OpenAI/Mistral). Paste any article, document, or URL and get a clean structured summary with key points. Built with React frontend and a FastAPI backend for low-latency processing.",
-    shortDesc: "AI-powered text summarisation using LLMs + FastAPI.",
-    image: "/projects/project3.png",
-    tags: ["React", "OpenAI", "Python", "FastAPI"],
+      "A production-ready LLM summarisation workspace powered by Google Gemini and LangChain. Upload PDFs/Word docs, paste text, or drop URLs and get clean structured summaries streamed in real time via SSE. Multiple style modes, a full analytics dashboard, source-type breakdown, and searchable history.",
+    shortDesc: "Gemini + LangChain summariser — PDFs, URLs, streaming, analytics.",
+    image: "/projects/summarai.png",
+    images: ["/projects/summarai.png", "/projects/summarai-2.png"],
+    tags: ["Python", "FastAPI", "LangChain", "Gemini", "MySQL"],
     link: "#",
-    github: "#",
+    github: "https://github.com/trrayane/SummarAI",
   },
   {
     title: "Project Management Tool",
@@ -44,6 +55,17 @@ const projects = [
     tags: ["Next.js", "Socket.io", "MongoDB", "Redis"],
     link: "#",
     github: "#",
+  },
+  {
+    title: "Rayane Labs",
+    description:
+      "A full-stack peripherals e-commerce platform tailored for the Algerian market — keyboards, mice, audio, and displays. Features advanced filtering (brand, price, hot-swap, RGB, wireless), JWT authentication with bcrypt, Supabase-backed catalog, file uploads, rate-limited APIs, dark mode, and nationwide cash-on-delivery shipping across 58 wilayas.",
+    shortDesc: "Peripherals e-commerce for Algeria — React + Express + Supabase.",
+    image: "/projects/rayane-ecomm.png",
+    images: ["/projects/rayane-ecomm.png", "/projects/rayane-ecomm-2.png"],
+    tags: ["React", "Vite", "Express", "Supabase", "JWT", "Docker"],
+    link: "#",
+    github: "https://github.com/trrayane/Rayane-ecomm",
   },
 ];
 
@@ -62,12 +84,48 @@ const ComingSoonBtn = ({ icon: Icon, label }) => (
   </div>
 );
 
-// ── Project Modal ────────────────────────────────────────────────────────────
-const ProjectModal = ({ project, onClose }) => {
-  const hasLive   = project.link   && project.link   !== "#";
-  const hasGithub = project.github && project.github !== "#";
+// ── Multi-sun icon (used by Coming Soon page) ───────────────────────────────
+const SunIcon = ({ size = 80, color = "#22d3b8", filled = false, strokeWidth = 2 }) => {
+  const center = size * 0.5;
+  const ringRadius = size * 0.22;
+  const rayInner = size * 0.32;
+  const rayOuter = size * 0.46;
 
-  // Lock body scroll + Escape key
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none">
+      {/* Center circle */}
+      <circle
+        cx={center}
+        cy={center}
+        r={ringRadius}
+        stroke={color}
+        strokeWidth={strokeWidth}
+        fill={filled ? color : "none"}
+        fillOpacity={filled ? 0.15 : 0}
+      />
+      {/* Rays */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const angle = (i * 45 * Math.PI) / 180;
+        const x1 = center + Math.cos(angle) * rayInner;
+        const y1 = center + Math.sin(angle) * rayInner;
+        const x2 = center + Math.cos(angle) * rayOuter;
+        const y2 = center + Math.sin(angle) * rayOuter;
+        return (
+          <line
+            key={i}
+            x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+// ── Coming Soon Page (full-screen) ──────────────────────────────────────────
+const ComingSoonPage = ({ project, onClose }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
@@ -77,6 +135,176 @@ const ProjectModal = ({ project, onClose }) => {
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
+
+  const handleNotify = () => {
+    onClose();
+    setTimeout(() => {
+      window.location.href = "#contact";
+    }, 50);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-background overflow-hidden animate-fade-in">
+      {/* Grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-60"
+        style={{
+          backgroundImage: `linear-gradient(rgba(34,211,184,0.05) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(34,211,184,0.05) 1px, transparent 1px)`,
+          backgroundSize: "56px 56px",
+          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+      />
+
+      {/* Ambient glows — portfolio teal as main */}
+      <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Drifting particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 14 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: i % 4 === 0 ? "3px" : "2px",
+              height: i % 4 === 0 ? "3px" : "2px",
+              backgroundColor: i % 5 === 0 ? "#a855f7" : "#22d3b8",
+              opacity: 0.3 + Math.random() * 0.3,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `slow-drift ${22 + Math.random() * 16}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 6}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Close button — top right */}
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 z-30 p-2.5 rounded-full glass border border-border/50 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-110"
+        aria-label="Close"
+      >
+        <X className="w-5 h-5" />
+      </button>
+
+      {/* Centered content */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-12">
+        <div className="text-center max-w-3xl w-full">
+
+          {/* Multi-sun icon — rotating */}
+          <div className="relative inline-flex items-center justify-center mb-10 h-28 w-32 animate-fade-in animation-delay-100">
+            {/* Soft glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/15 to-accent/10 blur-3xl rounded-full scale-150" />
+
+            {/* Big primary sun — spins slowly clockwise */}
+            <div className="relative animate-spin-slow" style={{ animationDuration: "18s" }}>
+              <SunIcon size={88} color="#22d3b8" filled />
+            </div>
+
+            {/* Small purple sun — top-right, reverse spin */}
+            <div
+              className="absolute -top-1 -right-2 animate-spin-reverse"
+              style={{ animationDuration: "10s" }}
+            >
+              <SunIcon size={36} color="#a855f7" />
+            </div>
+
+            {/* Small orange sun — bottom-left, slow spin */}
+            <div
+              className="absolute -bottom-1 -left-2 animate-spin-slow"
+              style={{ animationDuration: "14s" }}
+            >
+              <SunIcon size={30} color="#f97316" />
+            </div>
+          </div>
+
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-3 mb-6 animate-fade-in animation-delay-200">
+            <span className="w-8 h-px bg-primary/70" />
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+              Coming Soon
+            </span>
+          </div>
+
+          {/* Heading — tighter */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.05] mb-6 animate-fade-in animation-delay-300">
+            <span className="text-white">Something</span>{" "}
+            <span className="font-serif italic font-normal gradient-text glow-text">is coming</span>
+          </h1>
+
+          {/* Project name */}
+          {project && (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-border/40 mb-6 animate-fade-in animation-delay-400">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              </span>
+              <span className="text-xs font-medium text-muted-foreground">
+                <span className="text-primary font-semibold">Project:</span> {project.title}
+              </span>
+            </div>
+          )}
+
+          {/* Description — shorter */}
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-10 max-w-sm mx-auto animate-fade-in animation-delay-500">
+            Working on it. Stay tuned for the reveal.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 animate-fade-in animation-delay-600">
+            <button
+              onClick={handleNotify}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.15em] hover:bg-primary/90 transition-all hover:scale-105 btn-shine shadow-lg shadow-primary/30"
+            >
+              <Bell className="w-4 h-4" />
+              Get Notified
+            </button>
+            <button
+              onClick={onClose}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl glass border border-border hover:border-primary/40 hover:text-primary text-xs font-bold uppercase tracking-[0.15em] transition-all hover:scale-105"
+            >
+              <Home className="w-4 h-4" />
+              Back Home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Project Modal ────────────────────────────────────────────────────────────
+const ProjectModal = ({ project, onClose }) => {
+  const hasLive   = project.link   && project.link   !== "#";
+  const hasGithub = project.github && project.github !== "#";
+
+  // Gallery state — supports `images: []` array, falls back to single `image`
+  const gallery = project.images && project.images.length > 0
+    ? project.images
+    : [project.image];
+  const [imgIdx, setImgIdx] = useState(0);
+  const prevImg = () => setImgIdx((i) => (i - 1 + gallery.length) % gallery.length);
+  const nextImg = () => setImgIdx((i) => (i + 1) % gallery.length);
+
+  // Lock body scroll + Escape/Arrow keys
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (gallery.length > 1) {
+        if (e.key === "ArrowLeft")  prevImg();
+        if (e.key === "ArrowRight") nextImg();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose, gallery.length]);
 
   return (
     <div
@@ -91,20 +319,46 @@ const ProjectModal = ({ project, onClose }) => {
         className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl glass-strong border border-border/50 shadow-2xl shadow-black/50 animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image header */}
-        <div className="relative overflow-hidden rounded-t-3xl">
-          <div className="aspect-video relative">
+        {/* Image header / gallery */}
+        <div className="relative overflow-hidden rounded-t-3xl group">
+          <div className="aspect-video relative bg-card flex items-center justify-center">
             <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
+              key={imgIdx}
+              src={gallery[imgIdx]}
+              alt={`${project.title} — ${imgIdx + 1}/${gallery.length}`}
+              className="max-w-full max-h-full w-auto h-auto object-contain animate-fade-in"
               onError={(e) => {
                 e.currentTarget.parentElement.innerHTML =
                   `<div class="w-full h-full bg-gradient-to-br from-primary/20 via-accent/10 to-background flex items-center justify-center"><span class="text-5xl font-bold gradient-text opacity-30">${project.title[0]}</span></div>`;
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent pointer-events-none" />
           </div>
+
+          {/* Gallery arrows — only when multiple images */}
+          {gallery.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); prevImg(); }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full glass border border-border/50 text-white opacity-0 group-hover:opacity-100 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300 z-10"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); nextImg(); }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full glass border border-border/50 text-white opacity-0 group-hover:opacity-100 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300 z-10"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Counter — top-left */}
+              <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full glass border border-border/50 text-xs font-mono text-white/80 z-10">
+                {imgIdx + 1} / {gallery.length}
+              </div>
+            </>
+          )}
 
           {/* Gradient title overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -192,6 +446,34 @@ const ProjectModal = ({ project, onClose }) => {
   );
 };
 
+// ── Browser frame (Mac-style chrome wrapper for screenshots) ─────────────────
+const slugForUrl = (title) =>
+  title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+const BrowserFrame = ({ project, compact = false, children }) => {
+  const url = project.url || `${slugForUrl(project.title)}.app`;
+  return (
+    <div className="relative w-full h-full flex flex-col bg-card">
+      {/* Top chrome bar */}
+      <div className={`flex items-center gap-2 ${compact ? "px-2.5 py-1.5" : "px-3 py-2"} bg-[#0a0e13] border-b border-border/60`}>
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-red-500/60`} />
+          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-yellow-500/60`} />
+          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-green-500/60`} />
+        </div>
+        <div className={`flex-1 ${compact ? "ml-1 px-2 py-0.5" : "mx-2 px-2.5 py-1"} rounded-md bg-background/70 border border-border/50 flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground/80 min-w-0`}>
+          <Lock className="w-2.5 h-2.5 text-emerald-400/80 flex-shrink-0" />
+          <span className="truncate">{url}</span>
+        </div>
+      </div>
+      {/* Content */}
+      <div className="relative flex-1 min-h-0 overflow-hidden">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 // ── Featured card ────────────────────────────────────────────────────────────
 const FeaturedCard = ({ project, onClick }) => (
   <div
@@ -201,33 +483,35 @@ const FeaturedCard = ({ project, onClick }) => (
     <div className="grid md:grid-cols-5 gap-0">
       {/* Image */}
       <div className="relative md:col-span-3 overflow-hidden aspect-video md:aspect-auto">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          onError={(e) => {
-            e.currentTarget.parentElement.classList.add(
-              "bg-gradient-to-br", "from-primary/20", "via-accent/10", "to-background",
-              "flex", "items-center", "justify-center", "min-h-[200px]"
-            );
-            e.currentTarget.remove();
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/80 hidden md:block" />
-        <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent md:hidden" />
-
-        <div className="absolute top-4 left-4 flex items-center gap-1.5">
-          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/90 text-primary-foreground text-xs font-semibold backdrop-blur-sm">
-            <Star className="w-3 h-3 fill-current" /> Featured Project
-          </span>
-        </div>
-
-        {/* Click hint */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/20 text-sm font-medium backdrop-blur-sm">
-            <Eye className="w-4 h-4" /> View details
+        <BrowserFrame project={project}>
+          <div className="relative w-full h-full bg-card flex items-center justify-center min-h-[200px]">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              onError={(e) => {
+                e.currentTarget.parentElement.classList.add(
+                  "bg-gradient-to-br", "from-primary/20", "via-accent/10", "to-background"
+                );
+                e.currentTarget.remove();
+              }}
+            />
+            {/* Featured badge */}
+            <div className="absolute top-3 left-3 z-10">
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-lg shadow-primary/30">
+                <Star className="w-3 h-3 fill-current" /> Featured
+              </span>
+            </div>
+            {/* Subtle dim on hover */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+            {/* View details pill */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30">
+                <Eye className="w-4 h-4" /> View details
+              </div>
+            </div>
           </div>
-        </div>
+        </BrowserFrame>
       </div>
 
       {/* Content */}
@@ -258,27 +542,30 @@ const ProjectCard = ({ project, delay, onClick }) => (
     style={{ transitionDelay: `${delay}ms` }}
     onClick={onClick}
   >
-    <div className="relative overflow-hidden aspect-video">
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        onError={(e) => {
-          e.currentTarget.parentElement.classList.add(
-            "bg-gradient-to-br","from-primary/15","via-accent/10","to-background",
-            "flex","items-center","justify-center"
-          );
-          e.currentTarget.style.display = "none";
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent opacity-70" />
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/20 text-sm font-medium text-white">
-          <Eye className="w-4 h-4" /> View details
+    <div className="relative aspect-video overflow-hidden">
+      <BrowserFrame project={project} compact>
+        <div className="relative w-full h-full bg-card flex items-center justify-center">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            onError={(e) => {
+              e.currentTarget.parentElement.classList.add(
+                "bg-gradient-to-br","from-primary/15","via-accent/10","to-background"
+              );
+              e.currentTarget.style.display = "none";
+            }}
+          />
+          {/* Subtle dim on hover */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
+          {/* View details pill */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30">
+              <Eye className="w-4 h-4" /> View details
+            </div>
+          </div>
         </div>
-      </div>
+      </BrowserFrame>
     </div>
 
     <div className="p-5 space-y-3">
@@ -315,7 +602,7 @@ export const Projects = () => {
         {/* Header */}
         <div className="text-center mx-auto max-w-3xl mb-16">
           <span className="section-label reveal">Featured Work</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 reveal reveal-delay-1">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">Projects that </span>
             <span className="font-serif italic font-normal text-white/90">make an impact.</span>
           </h2>
@@ -345,9 +632,11 @@ export const Projects = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Coming Soon page if no GitHub link, otherwise project details modal */}
       {selected && (
-        <ProjectModal project={selected} onClose={() => setSelected(null)} />
+        !selected.github || selected.github === "#"
+          ? <ComingSoonPage project={selected} onClose={() => setSelected(null)} />
+          : <ProjectModal   project={selected} onClose={() => setSelected(null)} />
       )}
     </section>
   );

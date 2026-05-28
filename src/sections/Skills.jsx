@@ -101,7 +101,7 @@ export const Skills = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="section-label reveal">Tech Arsenal</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 reveal reveal-delay-1">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">Tools I use to </span>
             <span className="font-serif italic font-normal text-white/90">build things.</span>
           </h2>

@@ -354,6 +354,11 @@
     to { transform: rotate(360deg); }
   }
 
+  @keyframes spin-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
   @keyframes scale-in {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
@@ -408,6 +413,10 @@
 
   .animate-spin-slow {
     animation: spin-slow 20s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 16s linear infinite;
   }
 
   .animate-scale-in {
