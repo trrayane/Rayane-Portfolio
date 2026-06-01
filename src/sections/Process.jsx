@@ -49,7 +49,7 @@ const steps = [
 
 export const Process = () => {
   return (
-    <section id="process" className="py-32 relative overflow-hidden">
+    <section id="process" className="py-20 md:py-32 relative overflow-hidden">
       {/* Ambient glows */}
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
@@ -60,7 +60,7 @@ export const Process = () => {
           <span className="section-label reveal">How I Work</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">A process forged by </span>
-            <span className="font-serif italic font-normal text-white/90">engineering rigor.</span>
+            <span className="font-serif italic font-normal text-foreground">engineering rigor.</span>
           </h2>
           <p className="text-muted-foreground reveal reveal-delay-2">
             Every project follows a structured workflow — from discovery to
@@ -83,7 +83,7 @@ export const Process = () => {
 
               {/* Step number watermark */}
               <span
-                className={`absolute top-6 right-6 font-serif italic text-5xl font-bold text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-500 select-none`}
+                className={`absolute top-6 right-6 font-serif italic text-5xl font-bold text-foreground/[0.04] group-hover:text-foreground/[0.08] transition-colors duration-500 select-none`}
               >
                 {step.n}
               </span>
@@ -135,7 +135,7 @@ export const Process = () => {
 
         {/* Bottom note */}
         <p className="text-center text-xs text-muted-foreground/60 mt-12 reveal">
-          Transparent. Methodical. Built to last. ✦
+          Transparent. Methodical. Built to last.
         </p>
       </div>
     </section>

@@ -24,6 +24,64 @@
   --color-accent: #a855f7;
 }
 
+/* ── Light theme (toggled by adding `light` class on <html>) ───────────────── */
+html.light {
+  --color-background: #f5f7fa;
+  --color-foreground: #14181f;
+
+  --color-card: #ffffff;
+
+  --color-primary: #0d9488;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #eef1f5;
+  --color-secondary-foreground: #0d9488;
+
+  --color-muted: #e9edf2;
+  --color-muted-foreground: #56616e;
+
+  --color-border: #d4dae1;
+
+  --color-highlight: #ea580c;
+  --color-surface: #ffffff;
+  --color-accent: #9333ea;
+}
+
+html.light body {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(13, 148, 136, 0.07) 1px,
+    transparent 0
+  );
+}
+
+/* Keep the immersive terminal dark even in light mode (terminals read as dark).
+   Re-scope the color tokens inside the card so child utilities stay readable. */
+html.light .terminal-card {
+  --color-foreground: #e6edf3;
+  --color-muted-foreground: #8b949e;
+  --color-primary: #22d3b8;
+  --color-accent: #a855f7;
+}
+
+/* ── Respect users who prefer reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Make sure scroll-reveal content is always visible without animating in */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

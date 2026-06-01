@@ -92,7 +92,7 @@ const categories = [
 
 export const Skills = () => {
   return (
-    <section id="skills" className="py-32 relative overflow-hidden">
+    <section id="skills" className="py-20 md:py-32 relative overflow-hidden">
       {/* Ambient glows */}
       <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/3 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
@@ -103,11 +103,10 @@ export const Skills = () => {
           <span className="section-label reveal">Tech Arsenal</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">Tools I use to </span>
-            <span className="font-serif italic font-normal text-white/90">build things.</span>
+            <span className="font-serif italic font-normal text-foreground">build things.</span>
           </h2>
           <p className="text-muted-foreground reveal reveal-delay-2">
-            A curated stack — battle-tested in production, refined through years of
-            building real-world applications.
+            A curated stack — battle-tested in production.
           </p>
         </div>
 
@@ -160,7 +159,7 @@ export const Skills = () => {
 
         {/* Bottom note */}
         <p className="text-center text-xs text-muted-foreground/60 mt-10 reveal">
-          …and always learning more. ✦
+          …and always learning more.
         </p>
       </div>
     </section>

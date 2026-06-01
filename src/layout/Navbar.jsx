@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -41,12 +42,14 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 transition-all duration-500 z-50 ${
-        isScrolled ? "glass-strong py-3 shadow-lg shadow-black/20" : "bg-transparent py-5"
-      }`}
-    >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 md:pt-4">
+      <nav
+        className={`container mx-auto max-w-6xl flex items-center justify-between rounded-2xl border px-4 md:px-5 transition-all duration-300 ${
+          isScrolled
+            ? "glass-strong border-border/60 py-2.5 shadow-xl shadow-black/30"
+            : "glass border-border/40 py-3 shadow-lg shadow-black/10"
+        }`}
+      >
         {/* Logo */}
         <a href="#" className="group flex items-center gap-1">
           <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
@@ -80,27 +83,31 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
+        {/* CTA Button + theme toggle */}
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Button size="sm" className="btn-shine" onClick={() => window.location.href = "#contact"}>
             Hire Me
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-lg glass hover:bg-primary/10 hover:text-primary transition-all"
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile controls */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="p-2 rounded-lg glass hover:bg-primary/10 hover:text-primary transition-all"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong animate-fade-in border-t border-border/30">
-          <div className="container mx-auto px-6 py-6 flex flex-col gap-2">
+        <div className="md:hidden container mx-auto max-w-6xl mt-2 rounded-2xl glass-strong border border-border/50 shadow-xl shadow-black/30 animate-fade-in overflow-hidden">
+          <div className="px-4 py-5 flex flex-col gap-2">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (

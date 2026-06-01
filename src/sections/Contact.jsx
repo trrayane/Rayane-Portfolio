@@ -29,7 +29,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Algeria 🇩🇿",
+    value: "Algeria",
     href: "#",
     color: "text-highlight",
     bg: "bg-highlight/10 group-hover:bg-highlight/20",
@@ -100,7 +100,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
+    <section id="contact" className="py-20 md:py-32 relative overflow-hidden">
       {/* Ambient glows */}
       <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
@@ -111,11 +111,10 @@ export const Contact = () => {
           <span className="section-label reveal">Get In Touch</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">Let's build </span>
-            <span className="font-serif italic font-normal text-white/90">something great.</span>
+            <span className="font-serif italic font-normal text-foreground">something great.</span>
           </h2>
           <p className="text-muted-foreground reveal reveal-delay-2">
-            Have a project in mind? I'd love to hear about it. Send me a message
-            and let's discuss how we can work together.
+            Have a project in mind? Send me a message — let's talk.
           </p>
         </div>
 

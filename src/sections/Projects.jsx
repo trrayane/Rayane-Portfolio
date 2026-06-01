@@ -1,28 +1,24 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, ExternalLink, Star, X, Clock, Eye, Bell, Home, ChevronLeft, ChevronRight, Lock } from "lucide-react";
+import { ArrowUpRight, X, Bell, Home, Eye, Star } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 
 const projects = [
   {
     title: "Healy",
+    featured: true,
     description:
       "An intelligent health platform that helps users track symptoms, get AI-driven health insights, and connect with practitioners in real time. Features a secure patient dashboard, ML-powered recommendations, appointment scheduling, and end-to-end encrypted medical records.",
     shortDesc: "AI-powered health platform with smart insights & real-time consultations.",
-    image: "/projects/healy.png",
     tags: ["React", "Python", "AI / ML", "FastAPI", "PostgreSQL"],
-    link: "#",
     github: "#",
-    featured: true,
   },
   {
     title: "2048-SDL",
     description:
       "A high-performance implementation of the 2048 puzzle game built in C with SDL2. Features smooth tile animations, score tracking, responsive keyboard controls, and a clean game loop — runs natively on Linux/Windows. A deep dive into game development without a framework.",
     shortDesc: "2048 game built in C with SDL2 — native, fast, and smooth.",
-    image: "/projects/project1.png",
     tags: ["C", "SDL2", "Game Dev", "Algorithms"],
-    link: "#",
     github: "https://github.com/trrayane",
   },
   {
@@ -30,9 +26,7 @@ const projects = [
     description:
       "A fully functional arithmetic calculator written entirely in x86 Assembly. Demonstrates deep understanding of CPU registers, memory stack, system calls, and instruction sets — built as part of computer architecture studies.",
     shortDesc: "x86 Assembly calculator with full arithmetic ops.",
-    image: "/projects/project2.png",
     tags: ["Assembly", "x86", "Low-Level", "Systems"],
-    link: "#",
     github: "#",
   },
   {
@@ -40,10 +34,7 @@ const projects = [
     description:
       "A production-ready LLM summarisation workspace powered by Google Gemini and LangChain. Upload PDFs/Word docs, paste text, or drop URLs and get clean structured summaries streamed in real time via SSE. Multiple style modes, a full analytics dashboard, source-type breakdown, and searchable history.",
     shortDesc: "Gemini + LangChain summariser — PDFs, URLs, streaming, analytics.",
-    image: "/projects/summarai.png",
-    images: ["/projects/summarai.png", "/projects/summarai-2.png"],
     tags: ["Python", "FastAPI", "LangChain", "Gemini", "MySQL"],
-    link: "#",
     github: "https://github.com/trrayane/SummarAI",
   },
   {
@@ -51,9 +42,7 @@ const projects = [
     description:
       "A real-time collaborative workspace for dev teams. Features Kanban boards, live task updates via WebSockets, role-based access control, GitHub integration for commit tracking, and a MongoDB-backed REST API.",
     shortDesc: "Real-time Kanban boards with WebSockets & GitHub integration.",
-    image: "/projects/project4.png",
     tags: ["Next.js", "Socket.io", "MongoDB", "Redis"],
-    link: "#",
     github: "#",
   },
   {
@@ -61,28 +50,10 @@ const projects = [
     description:
       "A full-stack peripherals e-commerce platform tailored for the Algerian market — keyboards, mice, audio, and displays. Features advanced filtering (brand, price, hot-swap, RGB, wireless), JWT authentication with bcrypt, Supabase-backed catalog, file uploads, rate-limited APIs, dark mode, and nationwide cash-on-delivery shipping across 58 wilayas.",
     shortDesc: "Peripherals e-commerce for Algeria — React + Express + Supabase.",
-    image: "/projects/rayane-ecomm.png",
-    images: ["/projects/rayane-ecomm.png", "/projects/rayane-ecomm-2.png"],
     tags: ["React", "Vite", "Express", "Supabase", "JWT", "Docker"],
-    link: "#",
     github: "https://github.com/trrayane/Rayane-ecomm",
   },
 ];
-
-// ── Coming Soon button ───────────────────────────────────────────────────────
-const ComingSoonBtn = ({ icon: Icon, label }) => (
-  <div className="relative group/cs cursor-not-allowed">
-    <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass border border-border/50 text-muted-foreground text-sm font-medium opacity-60 select-none">
-      <Icon className="w-4 h-4" />
-      {label}
-    </div>
-    {/* Tooltip */}
-    <div className="absolute -top-9 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface border border-border text-xs text-foreground whitespace-nowrap opacity-0 group-hover/cs:opacity-100 transition-opacity pointer-events-none shadow-lg z-10">
-      <Clock className="w-3 h-3 inline mr-1 text-highlight" />
-      Coming soon
-    </div>
-  </div>
-);
 
 // ── Multi-sun icon (used by Coming Soon page) ───────────────────────────────
 const SunIcon = ({ size = 80, color = "#22d3b8", filled = false, strokeWidth = 2 }) => {
@@ -231,7 +202,7 @@ const ComingSoonPage = ({ project, onClose }) => {
 
           {/* Heading — tighter */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.05] mb-6 animate-fade-in animation-delay-300">
-            <span className="text-white">Something</span>{" "}
+            <span className="text-foreground">Something</span>{" "}
             <span className="font-serif italic font-normal gradient-text glow-text">is coming</span>
           </h1>
 
@@ -276,35 +247,34 @@ const ComingSoonPage = ({ project, onClose }) => {
   );
 };
 
-// ── Project Modal ────────────────────────────────────────────────────────────
-const ProjectModal = ({ project, onClose }) => {
-  const hasLive   = project.link   && project.link   !== "#";
-  const hasGithub = project.github && project.github !== "#";
+// ── Status badge ─────────────────────────────────────────────────────────────
+const StatusBadge = ({ status }) => {
+  const styles = {
+    Completed: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    "In Progress": "text-orange-400 bg-orange-500/10 border-orange-500/20",
+  };
+  return (
+    <span
+      className={`flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold border ${styles[status] || styles.Completed}`}
+    >
+      {status}
+    </span>
+  );
+};
 
-  // Gallery state — supports `images: []` array, falls back to single `image`
-  const gallery = project.images && project.images.length > 0
-    ? project.images
-    : [project.image];
-  const [imgIdx, setImgIdx] = useState(0);
-  const prevImg = () => setImgIdx((i) => (i - 1 + gallery.length) % gallery.length);
-  const nextImg = () => setImgIdx((i) => (i + 1) % gallery.length);
+// ── Project details modal ────────────────────────────────────────────────────
+const ProjectModal = ({ project, onClose, onComingSoon }) => {
+  const hasCode = project.github && project.github !== "#";
 
-  // Lock body scroll + Escape/Arrow keys
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose();
-      if (gallery.length > 1) {
-        if (e.key === "ArrowLeft")  prevImg();
-        if (e.key === "ArrowRight") nextImg();
-      }
-    };
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [onClose, gallery.length]);
+  }, [onClose]);
 
   return (
     <div
@@ -312,67 +282,16 @@ const ProjectModal = ({ project, onClose }) => {
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-md" />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
 
-      {/* Modal panel */}
+      {/* Panel */}
       <div
-        className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl glass-strong border border-border/50 shadow-2xl shadow-black/50 animate-scale-in"
+        className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl glass-strong border border-border/50 shadow-2xl shadow-black/40 animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image header / gallery */}
-        <div className="relative overflow-hidden rounded-t-3xl group">
-          <div className="aspect-video relative bg-card flex items-center justify-center">
-            <img
-              key={imgIdx}
-              src={gallery[imgIdx]}
-              alt={`${project.title} — ${imgIdx + 1}/${gallery.length}`}
-              className="max-w-full max-h-full w-auto h-auto object-contain animate-fade-in"
-              onError={(e) => {
-                e.currentTarget.parentElement.innerHTML =
-                  `<div class="w-full h-full bg-gradient-to-br from-primary/20 via-accent/10 to-background flex items-center justify-center"><span class="text-5xl font-bold gradient-text opacity-30">${project.title[0]}</span></div>`;
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent pointer-events-none" />
-          </div>
-
-          {/* Gallery arrows — only when multiple images */}
-          {gallery.length > 1 && (
-            <>
-              <button
-                onClick={(e) => { e.stopPropagation(); prevImg(); }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full glass border border-border/50 text-white opacity-0 group-hover:opacity-100 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300 z-10"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); nextImg(); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full glass border border-border/50 text-white opacity-0 group-hover:opacity-100 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300 z-10"
-                aria-label="Next image"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              {/* Counter — top-left */}
-              <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full glass border border-border/50 text-xs font-mono text-white/80 z-10">
-                {imgIdx + 1} / {gallery.length}
-              </div>
-            </>
-          )}
-
-          {/* Gradient title overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            {project.featured && (
-              <div className="flex items-center gap-1.5 mb-2">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/90 text-primary-foreground text-xs font-semibold">
-                  <Star className="w-3 h-3 fill-current" /> Featured
-                </span>
-              </div>
-            )}
-            <h2 className="text-2xl md:text-3xl font-bold text-white">{project.title}</h2>
-          </div>
-
-          {/* Close button */}
+        {/* Header */}
+        <div className="relative p-6 md:p-8 border-b border-border/50 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2.5 rounded-full glass border border-border/50 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-110"
@@ -380,221 +299,135 @@ const ProjectModal = ({ project, onClose }) => {
           >
             <X className="w-5 h-5" />
           </button>
+          <div className="mb-3">
+            <StatusBadge status={hasCode ? "Completed" : "In Progress"} />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">{project.title}</h2>
         </div>
 
         {/* Body */}
         <div className="p-6 md:p-8 space-y-6">
-          {/* Description */}
           <p className="text-muted-foreground leading-relaxed">{project.description}</p>
 
-          {/* Tech stack */}
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               Tech Stack
             </p>
             <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <span key={tag} className="tag-pill">{tag}</span>
-              ))}
+              {project.tags.map((t) => <span key={t} className="tag-pill">{t}</span>)}
             </div>
           </div>
 
-          {/* Divider */}
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-          {/* Action buttons */}
+          {/* Actions */}
           <div className="flex flex-wrap gap-3">
-            {hasLive ? (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all hover:scale-105 btn-shine shadow-lg shadow-primary/20"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Live Demo
-              </a>
-            ) : (
-              <ComingSoonBtn icon={ExternalLink} label="Live Demo" />
-            )}
-
-            {hasGithub ? (
+            {hasCode ? (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass border border-border hover:border-primary/40 hover:text-primary text-sm font-medium transition-all hover:scale-105"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all hover:scale-105 btn-shine shadow-lg shadow-primary/20"
               >
-                <FaGithub className="w-4 h-4" />
-                View Source
+                <FaGithub className="w-4 h-4" /> View Source
               </a>
             ) : (
-              <ComingSoonBtn icon={FaGithub} label="View Source" />
+              <button
+                onClick={() => { onClose(); setTimeout(() => onComingSoon(project), 60); }}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass border border-border hover:border-primary/40 hover:text-primary text-sm font-medium transition-all hover:scale-105"
+              >
+                <FaGithub className="w-4 h-4" /> Code — Coming soon
+              </button>
             )}
           </div>
-
-          {/* Coming soon notice */}
-          {(!hasLive || !hasGithub) && (
-            <p className="text-xs text-muted-foreground/60 flex items-center gap-1.5">
-              <Clock className="w-3 h-3 text-highlight" />
-              Some links will be available once the project is published.
-            </p>
-          )}
         </div>
       </div>
     </div>
   );
 };
 
-// ── Browser frame (Mac-style chrome wrapper for screenshots) ─────────────────
-const slugForUrl = (title) =>
-  title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+// ── Project card ─────────────────────────────────────────────────────────────
+const ProjectCard = ({ project, delay, onView, onComingSoon }) => {
+  const hasCode = project.github && project.github !== "#";
+  // Status is derived from the GitHub link: linked → Completed, otherwise In Progress
+  const status = hasCode ? "Completed" : "In Progress";
+  // No repo → the whole card goes straight to Coming Soon
+  const open = () => (hasCode ? onView(project) : onComingSoon(project));
 
-const BrowserFrame = ({ project, compact = false, children }) => {
-  const url = project.url || `${slugForUrl(project.title)}.app`;
   return (
-    <div className="relative w-full h-full flex flex-col bg-card">
-      {/* Top chrome bar */}
-      <div className={`flex items-center gap-2 ${compact ? "px-2.5 py-1.5" : "px-3 py-2"} bg-[#0a0e13] border-b border-border/60`}>
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-red-500/60`} />
-          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-yellow-500/60`} />
-          <span className={`${compact ? "w-2 h-2" : "w-2.5 h-2.5"} rounded-full bg-green-500/60`} />
-        </div>
-        <div className={`flex-1 ${compact ? "ml-1 px-2 py-0.5" : "mx-2 px-2.5 py-1"} rounded-md bg-background/70 border border-border/50 flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground/80 min-w-0`}>
-          <Lock className="w-2.5 h-2.5 text-emerald-400/80 flex-shrink-0" />
-          <span className="truncate">{url}</span>
-        </div>
-      </div>
-      {/* Content */}
-      <div className="relative flex-1 min-h-0 overflow-hidden">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-// ── Featured card ────────────────────────────────────────────────────────────
-const FeaturedCard = ({ project, onClick }) => (
-  <div
-    className="group glass rounded-3xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all duration-500 cursor-pointer hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/10 reveal"
-    onClick={onClick}
-  >
-    <div className="grid md:grid-cols-5 gap-0">
-      {/* Image */}
-      <div className="relative md:col-span-3 overflow-hidden aspect-video md:aspect-auto">
-        <BrowserFrame project={project}>
-          <div className="relative w-full h-full bg-card flex items-center justify-center min-h-[200px]">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              onError={(e) => {
-                e.currentTarget.parentElement.classList.add(
-                  "bg-gradient-to-br", "from-primary/20", "via-accent/10", "to-background"
-                );
-                e.currentTarget.remove();
-              }}
-            />
-            {/* Featured badge */}
-            <div className="absolute top-3 left-3 z-10">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-lg shadow-primary/30">
-                <Star className="w-3 h-3 fill-current" /> Featured
-              </span>
-            </div>
-            {/* Subtle dim on hover */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
-            {/* View details pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30">
-                <Eye className="w-4 h-4" /> View details
-              </div>
-            </div>
-          </div>
-        </BrowserFrame>
-      </div>
-
-      {/* Content */}
-      <div className="md:col-span-2 p-8 flex flex-col justify-center gap-5">
-        <div>
-          <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-4">
-            {project.shortDesc}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((t) => <span key={t} className="tag-pill">{t}</span>)}
-        </div>
-        <span className="inline-flex items-center gap-1.5 text-primary text-sm font-medium group-hover:gap-2.5 transition-all">
-          View project <ArrowUpRight className="w-4 h-4" />
+    <div
+      onClick={open}
+      className={`group glass rounded-2xl border p-6 flex flex-col gap-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 cursor-pointer reveal ${
+        project.featured
+          ? "border-primary/30 hover:border-primary/50"
+          : "border-border/50 hover:border-primary/30"
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {/* Featured ribbon */}
+      {project.featured && (
+        <span className="inline-flex items-center gap-1.5 self-start -mt-1 mb-0.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-[11px] font-semibold">
+          <Star className="w-3 h-3 fill-current" /> Featured
         </span>
-      </div>
-    </div>
-  </div>
-);
+      )}
 
-// ── Regular card ─────────────────────────────────────────────────────────────
-const ProjectCard = ({ project, delay, onClick }) => (
-  <div
-    className="group glass rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/8 cursor-pointer reveal"
-    style={{ transitionDelay: `${delay}ms` }}
-    onClick={onClick}
-  >
-    <div className="relative aspect-video overflow-hidden">
-      <BrowserFrame project={project} compact>
-        <div className="relative w-full h-full bg-card flex items-center justify-center">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-            onError={(e) => {
-              e.currentTarget.parentElement.classList.add(
-                "bg-gradient-to-br","from-primary/15","via-accent/10","to-background"
-              );
-              e.currentTarget.style.display = "none";
-            }}
-          />
-          {/* Subtle dim on hover */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
-          {/* View details pill */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30">
-              <Eye className="w-4 h-4" /> View details
-            </div>
-          </div>
-        </div>
-      </BrowserFrame>
-    </div>
-
-    <div className="p-5 space-y-3">
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-base font-semibold group-hover:text-primary transition-colors leading-tight">
+      {/* Header — title + status */}
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors">
           {project.title}
         </h3>
-        <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
+        <StatusBadge status={status} />
       </div>
-      <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2">
+
+      {/* Description */}
+      <p className="text-sm text-muted-foreground leading-relaxed flex-1">
         {project.shortDesc}
       </p>
-      <div className="flex flex-wrap gap-1.5 pt-1">
-        {project.tags.slice(0, 3).map((t) => <span key={t} className="tag-pill">{t}</span>)}
-        {project.tags.length > 3 && (
-          <span className="tag-pill text-muted-foreground/40">+{project.tags.length - 3}</span>
+
+      {/* Tags — portfolio teal */}
+      <div className="flex flex-wrap gap-2">
+        {project.tags.map((t) => <span key={t} className="tag-pill">{t}</span>)}
+      </div>
+
+      {/* Actions — View (details / coming soon) + Code (repo or coming soon) */}
+      <div className="flex items-center gap-2 pt-1">
+        <button
+          onClick={(e) => { e.stopPropagation(); open(); }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all btn-shine shadow-lg shadow-primary/20"
+        >
+          <Eye className="w-4 h-4" /> View
+        </button>
+
+        {hasCode ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg glass border border-border/60 text-sm font-medium hover:border-primary/40 hover:text-primary transition-all"
+          >
+            <FaGithub className="w-4 h-4" /> Code
+          </a>
+        ) : (
+          <button
+            onClick={(e) => { e.stopPropagation(); onComingSoon(project); }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border/40 text-sm font-medium text-muted-foreground/50 hover:text-muted-foreground hover:border-border transition-all"
+          >
+            <FaGithub className="w-4 h-4" /> Code
+          </button>
         )}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ── Section ──────────────────────────────────────────────────────────────────
 export const Projects = () => {
-  const [selected, setSelected] = useState(null);
-  const [featured, ...rest]     = projects;
+  const [detail, setDetail] = useState(null);
+  const [comingSoon, setComingSoon] = useState(null);
 
   return (
-    <section id="projects" className="py-32 relative overflow-hidden">
+    <section id="projects" className="py-20 md:py-32 relative overflow-hidden">
       <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
 
@@ -604,39 +437,47 @@ export const Projects = () => {
           <span className="section-label reveal">Featured Work</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6 reveal reveal-delay-1">
             <span className="text-secondary-foreground">Projects that </span>
-            <span className="font-serif italic font-normal text-white/90">make an impact.</span>
+            <span className="font-serif italic font-normal text-foreground">make an impact.</span>
           </h2>
           <p className="text-muted-foreground reveal reveal-delay-2">
-            Click any project to explore details, tech stack, and links.
+            A selection of things I've built — from frontend apps to low-level systems.
           </p>
         </div>
 
-        {/* Featured */}
-        <div className="mb-8">
-          <FeaturedCard project={featured} onClick={() => setSelected(featured)} />
-        </div>
-
-        {/* Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {rest.map((p, i) => (
-            <ProjectCard key={i} project={p} delay={i * 100} onClick={() => setSelected(p)} />
+        {/* Uniform grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((p, i) => (
+            <ProjectCard
+              key={i}
+              project={p}
+              delay={(i % 3) * 100}
+              onView={setDetail}
+              onComingSoon={setComingSoon}
+            />
           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center mt-14 reveal">
-          <AnimatedBorderButton>
+          <AnimatedBorderButton href="https://github.com/trrayane">
             View All Projects
             <ArrowUpRight className="w-5 h-5" />
           </AnimatedBorderButton>
         </div>
       </div>
 
-      {/* Coming Soon page if no GitHub link, otherwise project details modal */}
-      {selected && (
-        !selected.github || selected.github === "#"
-          ? <ComingSoonPage project={selected} onClose={() => setSelected(null)} />
-          : <ProjectModal   project={selected} onClose={() => setSelected(null)} />
+      {/* Project details window */}
+      {detail && (
+        <ProjectModal
+          project={detail}
+          onClose={() => setDetail(null)}
+          onComingSoon={setComingSoon}
+        />
+      )}
+
+      {/* Coming Soon page for projects without a GitHub link */}
+      {comingSoon && (
+        <ComingSoonPage project={comingSoon} onClose={() => setComingSoon(null)} />
       )}
     </section>
   );

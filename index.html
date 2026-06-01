@@ -4,8 +4,32 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rayane Terki — Full-Stack Engineer</title>
+    <script>
+      // Apply saved theme before paint to avoid a flash
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "light") {
+            document.documentElement.classList.add("light");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <title>Rayane Terki — Portfolio</title>
     <meta name="description" content="Full-Stack Engineer passionate about backend engineering, AI integration and cybersecurity. Building secure, scalable, high-performance web applications." />
+    <meta name="author" content="Rayane Terki" />
+    <meta name="theme-color" content="#070c10" />
+
+    <!-- Open Graph (link previews on LinkedIn, WhatsApp, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rayane Terki — Full-Stack Engineer" />
+    <meta property="og:description" content="Backend, AI integration & security. Building secure, scalable, high-performance web applications." />
+    <meta property="og:image" content="/hero-bg.jpg" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rayane Terki — Full-Stack Engineer" />
+    <meta name="twitter:description" content="Backend, AI integration & security. Building secure, scalable, high-performance web applications." />
+    <meta name="twitter:image" content="/hero-bg.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet" />

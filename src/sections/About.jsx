@@ -1,10 +1,10 @@
 import { Code2, Lightbulb, Rocket, ShieldCheck } from "lucide-react";
 
 const stats = [
-  { value: "2+",   label: "Years of experience" },
-  { value: "20+",  label: "Projects delivered" },
-  { value: "15+",  label: "Technologies mastered" },
-  { value: "100%", label: "Client satisfaction" },
+  { value: "2+",  label: "Years of experience" },
+  { value: "20+", label: "Projects delivered" },
+  { value: "20+", label: "Technologies mastered" },
+  { value: "5+",  label: "Languages spoken in code" },
 ];
 
 const highlights = [
@@ -40,7 +40,7 @@ const highlights = [
 
 export const About = () => {
   return (
-    <section id="about" className="py-32 relative overflow-hidden">
+    <section id="about" className="py-20 md:py-32 relative overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
 
@@ -73,27 +73,20 @@ export const About = () => {
 
             <h2 className="text-3xl md:text-4xl font-bold leading-tight reveal reveal-delay-1">
               <span className="text-secondary-foreground">Building the future,</span>
-              <span className="font-serif italic font-normal text-white/90">
+              <span className="font-serif italic font-normal text-foreground">
                 {" "}one component at a time.
               </span>
             </h2>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed reveal reveal-delay-2">
               <p>
-                I'm a Full-Stack Engineer with a strong focus on backend systems, AI
-                integration, and cybersecurity. I specialize in building scalable,
-                secure, and intelligent applications designed for real-world
-                production environments.
+                Full-Stack Engineer focused on backend systems, AI integration, and
+                security — building scalable apps for real production environments.
               </p>
               <p>
-                My expertise spans backend architecture, API design, and distributed
-                systems using Node.js, TypeScript, and Python. I also integrate ML
-                models and LLM-based features to create smarter user experiences.
-              </p>
-              <p>
-                I'm particularly interested in system design, AI-driven applications,
-                and secure software engineering — focusing on performance,
-                reliability, and systems that scale while maintaining strong security.
+                I work across backend architecture, APIs, and distributed systems with
+                Node.js, TypeScript, and Python, and integrate ML & LLM features for
+                smarter experiences.
               </p>
             </div>
 
@@ -101,9 +94,8 @@ export const About = () => {
             <div className="relative glass rounded-2xl p-6 glow-border reveal reveal-delay-3 overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl" />
               <p className="text-base font-medium italic text-foreground/90 pl-4">
-                "My mission is to create digital experiences that are not just
-                functional, but truly delightful — products that users love to
-                use and developers love to maintain."
+                "I build digital experiences that aren't just functional, but
+                delightful — products users love and developers love to maintain."
               </p>
             </div>
           </div>

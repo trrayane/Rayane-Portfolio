@@ -1,10 +1,9 @@
 import { Heart } from "lucide-react";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaEnvelope } from "react-icons/fa6";
 
 const socialLinks = [
-  { icon: FaGithub,   href: "https://github.com/trrayane", label: "GitHub" },
-  { icon: FaLinkedin, href: "#",                            label: "LinkedIn" },
-  { icon: FaXTwitter, href: "#",                            label: "Twitter" },
+  { icon: FaGithub,   href: "https://github.com/trrayane",   label: "GitHub" },
+  { icon: FaEnvelope, href: "mailto:rayaneterki55@gmail.com", label: "Email" },
 ];
 
 const footerLinks = [
@@ -38,7 +37,7 @@ export const Footer = () => {
               © {currentYear} Rayane Terki. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 justify-center md:justify-start">
-              Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> and lots of ☕
+              Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> and lots of coffee
             </p>
           </div>
 
@@ -57,16 +56,21 @@ export const Footer = () => {
 
           {/* Social Links */}
           <div className="flex items-center gap-3">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all duration-300 hover:scale-110"
-              >
-                <social.icon className="w-4 h-4" />
-              </a>
-            ))}
+            {socialLinks.map((social) => {
+              const external = social.href.startsWith("http");
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all duration-300 hover:scale-110"
+                >
+                  <social.icon className="w-4 h-4" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

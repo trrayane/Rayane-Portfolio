@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --ink: #111111;
+        --body: #2b2b2b;
+        --muted: #555555;
+        --soft: #777777;
+        --line: #cfcfcf;
+      }
+
+      html, body { background: #ffffff; }
+
+      body {
+        font-family: "Inter", Arial, sans-serif;
+        color: var(--body);
+        font-size: 10px;
+        line-height: 1.5;
+        padding: 36px 42px;
+        -webkit-print-color-adjust: exact;
+      }
+
+      /* Header */
+      .head { border-bottom: 2.5px solid var(--ink); padding-bottom: 13px; }
+      .name { font-size: 27px; font-weight: 800; letter-spacing: 0.5px; color: var(--ink); text-transform: uppercase; }
+      .role { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-top: 2px; letter-spacing: 0.3px; }
+      .contact { margin-top: 8px; font-size: 9.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+      .contact span { display: inline-flex; align-items: center; }
+      .contact b { color: var(--ink); font-weight: 600; }
+
+      /* Sections */
+      section { margin-top: 16px; }
+      h2 {
+        font-size: 10px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 2px; color: var(--ink); padding-bottom: 4px;
+        border-bottom: 1px solid var(--line); margin-bottom: 8px;
+      }
+
+      .summary { color: var(--body); font-size: 10px; }
+
+      /* Skills */
+      .skill-row { display: flex; gap: 8px; margin-bottom: 3px; font-size: 9.5px; }
+      .skill-row:last-child { margin-bottom: 0; }
+      .skill-cat { font-weight: 700; color: var(--ink); min-width: 92px; flex-shrink: 0; }
+      .skill-val { color: var(--muted); }
+
+      /* Projects */
+      .proj { margin-bottom: 10px; }
+      .proj:last-child { margin-bottom: 0; }
+      .proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .proj-title { font-weight: 700; font-size: 11px; color: var(--ink); }
+      .proj-stack { font-size: 8.5px; color: var(--soft); font-weight: 500; text-align: right; flex-shrink: 0; }
+      .proj-link { font-size: 8.5px; color: var(--muted); font-weight: 500; }
+      ul { list-style: none; margin-top: 3px; }
+      li { position: relative; padding-left: 12px; color: var(--body); font-size: 9.5px; margin-bottom: 1.5px; }
+      li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 3px; height: 3px; background: var(--ink); border-radius: 50%; }
+
+      .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+      .edu-item { font-size: 9.5px; }
+      .edu-item .t { font-weight: 700; color: var(--ink); }
+      .edu-item .s { color: var(--soft); }
+
+      .footer { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--line); text-align: center; font-size: 8.5px; color: var(--soft); letter-spacing: 0.5px; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <div class="head">
+      <div class="name">Rayane Terki</div>
+      <div class="role">Full-Stack Engineer — Backend &amp; AI</div>
+      <div class="contact">
+        <span><b>rayaneterki55@gmail.com</b></span>
+        <span>+213 660 320 043</span>
+        <span>Algeria · Remote worldwide</span>
+        <span>github.com/trrayane</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>Summary</h2>
+      <p class="summary">
+        Full-Stack Engineer focused on backend systems, AI integration and security. I design and ship
+        scalable, secure, high-performance applications for real production environments — from API
+        architecture and distributed systems to LLM-powered product features.
+      </p>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <div class="skill-row"><span class="skill-cat">Languages</span><span class="skill-val">JavaScript / TypeScript, Python, PHP, C, C++</span></div>
+      <div class="skill-row"><span class="skill-cat">Frontend</span><span class="skill-val">React, Next.js, Tailwind CSS, Vite</span></div>
+      <div class="skill-row"><span class="skill-cat">Backend</span><span class="skill-val">Node.js, NestJS, Express, FastAPI, Django, Laravel</span></div>
+      <div class="skill-row"><span class="skill-cat">Databases</span><span class="skill-val">PostgreSQL, MongoDB, MySQL, Redis, Prisma, GraphQL</span></div>
+      <div class="skill-row"><span class="skill-cat">DevOps</span><span class="skill-val">Docker, Nginx, GitHub Actions, AWS, Linux, Git, Vercel</span></div>
+      <div class="skill-row"><span class="skill-cat">AI &amp; Security</span><span class="skill-val">OpenAI API, LangChain, Gemini, TensorFlow · JWT/OAuth2, Burp Suite, Wireshark</span></div>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+
+      <div class="proj">
+        <div class="proj-head">
+          <span class="proj-title">SummarAI — LLM Summarisation Workspace</span>
+          <span class="proj-stack">Python · FastAPI · LangChain · Gemini · MySQL</span>
+        </div>
+        <ul>
+          <li>Production-ready summariser for PDFs, Word docs and URLs with real-time streaming over SSE.</li>
+          <li>Multiple summary styles, analytics dashboard, source-type breakdown and searchable history.</li>
+          <li class="proj-link">github.com/trrayane/SummarAI</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <span class="proj-title">Rayane Labs — Peripherals E-commerce</span>
+          <span class="proj-stack">React · Express · Supabase · JWT · Docker</span>
+        </div>
+        <ul>
+          <li>Full-stack store for the Algerian market with advanced filtering (brand, price, RGB, wireless, hot-swap).</li>
+          <li>JWT/bcrypt authentication, rate-limited APIs, Supabase catalog with file uploads and dark mode.</li>
+          <li>Nationwide cash-on-delivery shipping across 58 wilayas; dockerised deployment.</li>
+          <li class="proj-link">github.com/trrayane/Rayane-ecomm</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <span class="proj-title">Healy — AI Health Platform</span>
+          <span class="proj-stack">React · Python · FastAPI · PostgreSQL</span>
+        </div>
+        <ul>
+          <li>Symptom tracking with ML-powered recommendations and real-time practitioner consultations.</li>
+          <li>Secure patient dashboard, appointment scheduling and end-to-end encrypted medical records.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <span class="proj-title">2048-SDL — Native Game in C</span>
+          <span class="proj-stack">C · SDL2</span>
+        </div>
+        <ul>
+          <li>High-performance 2048 built from scratch with SDL2: smooth animations, score tracking, clean game loop.</li>
+          <li>Runs natively on Linux/Windows with no framework — a deep dive into low-level game development.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section>
+        <h2>Also Built</h2>
+        <ul>
+          <li><b>Project Management Tool</b> — real-time Kanban with WebSockets, RBAC and GitHub integration (Next.js, Socket.io, MongoDB, Redis).</li>
+          <li><b>Assembly Calculator</b> — full arithmetic calculator written entirely in x86 Assembly.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Education</h2>
+        <div class="edu-item">
+          <div class="t">B.Sc. Computer Science</div>
+          <div class="s">In progress · Algeria</div>
+        </div>
+        <div class="edu-item" style="margin-top:6px;">
+          <div class="t">Languages</div>
+          <div class="s">Arabic (native), English, French</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">Transparent · Methodical · Built to last</div>
+  </body>
+</html>

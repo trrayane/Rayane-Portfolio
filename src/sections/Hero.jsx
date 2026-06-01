@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/Button";
-import { ArrowRight, ChevronDown, Download, Terminal, MapPin } from "lucide-react";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { ArrowRight, Download } from "lucide-react";
+import { FaGithub, FaEnvelope } from "react-icons/fa6";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
 
 // ── Typewriter hook ─────────────────────────────────────────────────────────
@@ -41,88 +41,69 @@ const roles = [
   "AI Integrations Dev",
 ];
 
-// ── Terminal card ───────────────────────────────────────────────────────────
-const terminalLines = [
-  { type: "cmd",  text: "whoami" },
-  { type: "out",  text: "rayane@terki  →  Full-Stack Engineer" },
-  { type: "gap" },
-  { type: "cmd",  text: "cat stack.json" },
-  { type: "json", text: "{" },
-  { type: "json", text: '  "frontend": ["React", "Next.js", "TS"],' },
-  { type: "json", text: '  "backend":  ["Node", "Python", "NestJS"],' },
-  { type: "json", text: '  "infra":    ["Docker", "AWS", "Linux"]' },
-  { type: "json", text: "}" },
-  { type: "gap" },
-  { type: "cmd",  text: "git status --porcelain" },
-  { type: "ok",   text: "open_to_work: true" },
+// ── Code editor showcase ────────────────────────────────────────────────────
+const K  = ({ children }) => <span style={{ color: "#c792ea" }}>{children}</span>; // keyword
+const Vr = ({ children }) => <span style={{ color: "#82aaff" }}>{children}</span>; // variable / type
+const Pr = ({ children }) => <span style={{ color: "#5ccfe0" }}>{children}</span>; // property
+const St = ({ children }) => <span style={{ color: "#c3e88d" }}>{children}</span>; // string
+const Bo = ({ children }) => <span style={{ color: "#f78c6c" }}>{children}</span>; // boolean
+const Mu = ({ children }) => <span style={{ color: "#8b949e" }}>{children}</span>; // punctuation
+
+const codeLines = [
+  <><K>const</K> <Vr>rayane</Vr><Mu>:</Mu> <Vr>Dev</Vr> <Mu>= {"{"}</Mu></>,
+  <>{"  "}<Pr>name</Pr><Mu>:</Mu> <St>"Rayane Terki"</St><Mu>,</Mu></>,
+  <>{"  "}<Pr>role</Pr><Mu>:</Mu> <St>"Full-Stack Engineer"</St><Mu>,</Mu></>,
+  <>{"  "}<Pr>stack</Pr><Mu>: {"{"}</Mu></>,
+  <>{"    "}<Pr>frontend</Pr><Mu>:</Mu> <Mu>[</Mu><St>"React"</St><Mu>,</Mu> <St>"Next.js"</St><Mu>,</Mu> <St>"TS"</St><Mu>],</Mu></>,
+  <>{"    "}<Pr>backend</Pr><Mu>:</Mu> <Mu>[</Mu><St>"Node"</St><Mu>,</Mu> <St>"Python"</St><Mu>,</Mu> <St>"NestJS"</St><Mu>],</Mu></>,
+  <>{"    "}<Pr>infra</Pr><Mu>:</Mu> <Mu>[</Mu><St>"Docker"</St><Mu>,</Mu> <St>"AWS"</St><Mu>,</Mu> <St>"Linux"</St><Mu>],</Mu></>,
+  <>{"  "}<Mu>{"},"}</Mu></>,
+  <>{"  "}<Pr>focus</Pr><Mu>:</Mu> <Mu>[</Mu><St>"Backend"</St><Mu>,</Mu> <St>"AI"</St><Mu>,</Mu> <St>"Security"</St><Mu>],</Mu></>,
+  <>{"  "}<Pr>available</Pr><Mu>:</Mu> <Bo>true</Bo><Mu>,</Mu></>,
+  <><Mu>{"};"}</Mu></>,
 ];
 
-const TerminalCard = () => {
-  const [visibleCount, setVisibleCount] = useState(0);
+const CodeShowcase = () => (
+  <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
+    {/* Glow */}
+    <div className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-accent/5 to-transparent blur-3xl pointer-events-none" />
 
-  useEffect(() => {
-    if (visibleCount >= terminalLines.length) return;
-    const delay = terminalLines[visibleCount]?.type === "gap" ? 200 : 350;
-    const t = setTimeout(() => setVisibleCount((p) => p + 1), delay);
-    return () => clearTimeout(t);
-  }, [visibleCount]);
-
-  return (
-    <div className="terminal-card w-full">
-      {/* Header */}
-      <div className="terminal-header">
-        <span className="terminal-dot bg-red-500" />
-        <span className="terminal-dot bg-yellow-400" />
-        <span className="terminal-dot bg-green-500" />
-        <span className="ml-3 text-xs text-muted-foreground font-mono flex items-center gap-1.5">
-          <Terminal className="w-3 h-3" />
-          terminal
+    <div className="relative rounded-xl overflow-hidden border border-border/60 bg-[#0d1117] shadow-2xl shadow-black/40">
+      {/* Title bar */}
+      <div className="flex items-center gap-2 px-4 pt-3 bg-[#161b22] border-b border-border/60">
+        <div className="flex items-center gap-2 pb-3">
+          <span className="w-3 h-3 rounded-full bg-red-500/90" />
+          <span className="w-3 h-3 rounded-full bg-yellow-400/90" />
+          <span className="w-3 h-3 rounded-full bg-green-500/90" />
+        </div>
+        <span className="ml-3 px-3 py-1.5 rounded-t-md bg-[#0d1117] border-t-2 border-primary text-[#c9d1d9] text-xs font-mono">
+          developer.ts
         </span>
       </div>
 
-      {/* Body */}
-      <div className="terminal-body select-none">
-        {terminalLines.slice(0, visibleCount).map((line, i) => {
-          if (line.type === "gap") return <div key={i} className="h-2" />;
-          if (line.type === "cmd")
-            return (
-              <div key={i} className="flex items-center gap-2 animate-fade-in">
-                <span className="text-primary font-semibold">$</span>
-                <span className="text-foreground">{line.text}</span>
-              </div>
-            );
-          if (line.type === "out")
-            return (
-              <div key={i} className="pl-4 text-muted-foreground animate-fade-in">
-                {line.text}
-              </div>
-            );
-          if (line.type === "json")
-            return (
-              <div key={i} className="pl-4 text-green-400 animate-fade-in">
-                {line.text}
-              </div>
-            );
-          if (line.type === "ok")
-            return (
-              <div key={i} className="pl-4 text-emerald-400 font-semibold animate-fade-in">
-                {line.text}
-              </div>
-            );
-          return null;
-        })}
-
-        {/* Blinking cursor */}
-        {visibleCount >= terminalLines.length && (
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-primary font-semibold">$</span>
-            <span className="w-2 h-4 bg-primary animate-blink inline-block rounded-sm" />
-          </div>
-        )}
+      {/* Code body */}
+      <div className="flex p-4 font-mono text-[12.5px] leading-[1.7] overflow-x-auto">
+        {/* Line numbers */}
+        <div className="select-none pr-4 text-right" style={{ color: "#6e7681" }}>
+          {codeLines.map((_, i) => (
+            <div key={i}>{i + 1}</div>
+          ))}
+        </div>
+        {/* Code */}
+        <div className="min-w-0">
+          {codeLines.map((line, i) => (
+            <div key={i} className="whitespace-pre">
+              {line}
+              {i === codeLines.length - 1 && (
+                <span className="inline-block w-[7px] h-[15px] bg-primary animate-blink align-middle ml-1 rounded-[1px]" />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 // ── Component ───────────────────────────────────────────────────────────────
 export const Hero = () => {
@@ -179,10 +160,6 @@ export const Hero = () => {
                 </span>
                 <span className="text-primary font-medium">Available for new projects</span>
               </span>
-              <span className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-full glass text-xs border border-border/40 text-muted-foreground">
-                <MapPin className="w-3.5 h-3.5 text-primary/70" />
-                Based in Algeria — Remote worldwide
-              </span>
             </div>
 
             {/* Heading */}
@@ -193,7 +170,7 @@ export const Hero = () => {
                 <br />
                 experiences with
                 <br />
-                <span className="font-serif italic font-normal text-white/90">
+                <span className="font-serif italic font-normal text-foreground">
                   precision.
                 </span>
               </h1>
@@ -215,9 +192,8 @@ export const Hero = () => {
             <p className="text-base text-muted-foreground max-w-lg leading-relaxed animate-fade-in animation-delay-200">
               Hi, I'm{" "}
               <span className="text-foreground font-semibold">Rayane Terki</span>{" "}
-              — a Full-Stack Developer passionate about backend engineering and
-              cybersecurity. I build secure, scalable, and high-performance web
-              applications with modern technologies.
+              — Full-Stack Developer focused on backend engineering and security.
+              I build secure, scalable, high-performance web apps.
             </p>
 
             {/* Buttons */}
@@ -225,7 +201,7 @@ export const Hero = () => {
               <Button size="lg" className="btn-shine" onClick={() => window.location.href = "#contact"}>
                 Contact Me <ArrowRight className="w-5 h-5" />
               </Button>
-              <AnimatedBorderButton>
+              <AnimatedBorderButton href="/Rayane-Terki-CV.pdf" download>
                 <Download className="w-5 h-5" />
                 Download CV
               </AnimatedBorderButton>
@@ -235,8 +211,8 @@ export const Hero = () => {
             <div className="flex items-center gap-6 pt-2 animate-fade-in animation-delay-400">
               {[
                 { value: "2+",  label: "Years" },
-                { value: "30+", label: "Projects" },
-                { value: "20+", label: "Stack" },
+                { value: "20+", label: "Projects" },
+                { value: "20+", label: "Tech" },
               ].map((s, i) => (
                 <div key={s.label} className="flex items-center gap-6">
                   <div>
@@ -259,32 +235,30 @@ export const Hero = () => {
               </span>
               <div className="flex items-center gap-2">
                 {[
-                  { icon: FaGithub,   href: "https://github.com/trrayane", label: "GitHub" },
-                  { icon: FaLinkedin, href: "#",                             label: "LinkedIn" },
-                  { icon: FaXTwitter, href: "#",                             label: "Twitter" },
-                ].map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary hover:border-primary/30 border border-transparent transition-all duration-300"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
+                  { icon: FaGithub,   href: "https://github.com/trrayane",        label: "GitHub" },
+                  { icon: FaEnvelope, href: "mailto:rayaneterki55@gmail.com",      label: "Email" },
+                ].map(({ icon: Icon, href, label }) => {
+                  const external = href.startsWith("http");
+                  return (
+                    <a
+                      key={label}
+                      href={href}
+                      aria-label={label}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary hover:border-primary/30 border border-transparent transition-all duration-300"
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
 
           {/* ── RIGHT ─────────────────────────────────────── */}
           <div className="relative animate-fade-in animation-delay-300">
-            {/* Soft glow behind terminal */}
-            <div className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-accent/5 to-transparent blur-3xl pointer-events-none" />
-
-            {/* Terminal card */}
-            <div className="relative max-w-md mx-auto lg:mx-0 lg:ml-auto w-full">
-              <TerminalCard />
-            </div>
+            <CodeShowcase />
           </div>
         </div>
 
