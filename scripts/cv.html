@@ -34,7 +34,7 @@
       .contact b { color: var(--ink); font-weight: 600; }
 
       .qr { text-align: center; flex-shrink: 0; }
-      .qr img { width: 66px; height: 66px; display: block; }
+      .qr svg { width: 68px; height: 68px; display: block; }
       .qr .cap { font-size: 7px; color: var(--soft); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; font-weight: 600; }
 
       /* Sections */
@@ -85,9 +85,7 @@
         </div>
       </div>
       <div class="qr">
-        <img id="qr-img"
-             src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&qzone=1&color=111111&bgcolor=ffffff&data=https%3A%2F%2Frayane-portfolio-eight.vercel.app"
-             alt="Portfolio QR" />
+        <div id="qr-slot"></div>
         <div class="cap">Scan · Portfolio</div>
       </div>
     </div>
@@ -104,7 +102,7 @@
     <section>
       <h2>Technical Skills</h2>
       <div class="skill-row"><span class="skill-cat">Languages</span><span class="skill-val">JavaScript / TypeScript, Python, PHP, C, C++</span></div>
-      <div class="skill-row"><span class="skill-cat">Frontend</span><span class="skill-val">React, Next.js, Tailwind CSS, Vite</span></div>
+      <div class="skill-row"><span class="skill-cat">Frontend</span><span class="skill-val">React, Next.js, React Native (Expo), Tailwind CSS, Vite</span></div>
       <div class="skill-row"><span class="skill-cat">Backend</span><span class="skill-val">Node.js, NestJS, Express, FastAPI, Django, Laravel</span></div>
       <div class="skill-row"><span class="skill-cat">Databases</span><span class="skill-val">PostgreSQL, MongoDB, MySQL, Redis, Prisma, GraphQL</span></div>
       <div class="skill-row"><span class="skill-cat">DevOps</span><span class="skill-val">Docker, Nginx, GitHub Actions, AWS, Linux, Git, Vercel</span></div>
@@ -116,34 +114,42 @@
 
       <div class="proj">
         <div class="proj-head">
+          <span class="proj-title">Healy — AI Health Platform</span>
+          <span class="proj-stack">React · Python · FastAPI · PostgreSQL · ML</span>
+        </div>
+        <ul>
+          <li>AI-powered symptom tracking with ML recommendations, real-time consultations and a secure patient dashboard.</li>
+          <li>Appointment scheduling and end-to-end encrypted medical records.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
           <span class="proj-title">SummarAI — LLM Summarisation Workspace</span>
           <span class="proj-stack">Python · FastAPI · LangChain · Gemini</span>
         </div>
         <ul>
-          <li>Production-ready summariser for PDFs, docs and URLs with real-time streaming over SSE.</li>
-          <li>Multiple summary styles, analytics dashboard and searchable history. <span class="lnk">github.com/trrayane/SummarAI</span></li>
+          <li>Summariser for PDFs, docs and URLs with real-time SSE streaming, analytics dashboard and history. <span class="lnk">github.com/trrayane/SummarAI</span></li>
         </ul>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">Rayane Labs — Peripherals E-commerce</span>
+          <span class="proj-title">Rayane Labs — E-commerce Platform (Web)</span>
           <span class="proj-stack">React · Express · Supabase · JWT · Docker</span>
         </div>
         <ul>
-          <li>Full-stack store with advanced filtering, JWT/bcrypt auth, rate-limited APIs and dark mode.</li>
-          <li>Cash-on-delivery across 58 wilayas; dockerised. <span class="lnk">github.com/trrayane/Rayane-ecomm</span></li>
+          <li>Full-stack store: advanced filtering, JWT/bcrypt auth, rate-limited APIs, cash-on-delivery across 58 wilayas. <span class="lnk">github.com/trrayane/Rayane-ecomm</span></li>
         </ul>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">Healy — AI Health Platform</span>
-          <span class="proj-stack">React · Python · FastAPI · PostgreSQL</span>
+          <span class="proj-title">E-commerce Mobile App</span>
+          <span class="proj-stack">React Native · Expo · REST API</span>
         </div>
         <ul>
-          <li>Symptom tracking with ML recommendations, real-time consultations and a secure patient dashboard.</li>
-          <li>Appointment scheduling and end-to-end encrypted medical records.</li>
+          <li>Cross-platform shopping app: product catalog, cart, secure checkout, push notifications and order tracking.</li>
         </ul>
       </div>
 
@@ -153,8 +159,7 @@
           <span class="proj-stack">React · Vite · Tailwind CSS</span>
         </div>
         <ul>
-          <li>Responsive portfolio with light/dark mode, animated UI and a Web3Forms-powered contact form.</li>
-          <li><span class="lnk">rayane-portfolio-eight.vercel.app</span></li>
+          <li>Responsive portfolio with light/dark mode, animated UI and a contact form. <span class="lnk">rayane-portfolio-eight.vercel.app</span></li>
         </ul>
       </div>
     </section>
@@ -179,8 +184,8 @@
       <section class="ed">
         <h2>Education &amp; Languages</h2>
         <div class="row">
-          <div class="t">B.Sc. Computer Science</div>
-          <div class="s">In progress · Algeria</div>
+          <div class="t">Licence in Computer Science — L3 (final year)</div>
+          <div class="s">USTHB (Univ. of Sciences &amp; Technology Houari Boumediene), Algiers</div>
         </div>
         <div class="row">
           <div class="t">Languages</div>

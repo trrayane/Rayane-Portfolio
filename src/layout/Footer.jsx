@@ -1,17 +1,8 @@
-import { Heart } from "lucide-react";
 import { FaGithub, FaEnvelope } from "react-icons/fa6";
 
 const socialLinks = [
   { icon: FaGithub,   href: "https://github.com/trrayane",   label: "GitHub" },
   { icon: FaEnvelope, href: "mailto:rayaneterki55@gmail.com", label: "Email" },
-];
-
-const footerLinks = [
-  { href: "#about",      label: "About" },
-  { href: "#skills",     label: "Skills" },
-  { href: "#projects",   label: "Projects" },
-  { href: "#process",    label: "Process" },
-  { href: "#contact",    label: "Contact" },
 ];
 
 export const Footer = () => {
@@ -22,56 +13,28 @@ export const Footer = () => {
       {/* Top gradient fade */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-      <div className="container mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="container mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-muted-foreground order-2 sm:order-1">
+          © {currentYear}{" "}
+          <span className="text-foreground font-semibold">Rayane Terki</span>. All rights reserved.
+        </p>
 
-          {/* Logo & Copyright */}
-          <div className="text-center md:text-left">
-            <a href="#" className="group inline-flex items-center gap-0.5 mb-2">
-              <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                RT
-              </span>
-              <span className="text-xl font-bold text-primary">.</span>
-            </a>
-            <p className="text-xs text-muted-foreground">
-              © {currentYear} Rayane Terki. All rights reserved.
-            </p>
-            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 justify-center md:justify-start">
-              Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> and lots of coffee
-            </p>
-          </div>
-
-          {/* Nav links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {footerLinks.map((link) => (
+        <div className="flex items-center gap-2 order-1 sm:order-2">
+          {socialLinks.map((social) => {
+            const external = social.href.startsWith("http");
+            return (
               <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                key={social.label}
+                href={social.href}
+                aria-label={social.label}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="p-2.5 rounded-full glass text-muted-foreground border border-border/40 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-110"
               >
-                {link.label}
+                <social.icon className="w-4 h-4" />
               </a>
-            ))}
-          </nav>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-3">
-            {socialLinks.map((social) => {
-              const external = social.href.startsWith("http");
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all duration-300 hover:scale-110"
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </div>
     </footer>

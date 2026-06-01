@@ -246,7 +246,7 @@ export const Hero = () => {
                       aria-label={label}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noopener noreferrer" : undefined}
-                      className="p-2.5 rounded-full glass hover:bg-primary/10 hover:text-primary hover:border-primary/30 border border-transparent transition-all duration-300"
+                      className="p-2.5 rounded-full glass text-muted-foreground border border-border/40 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300"
                     >
                       <Icon className="w-4 h-4" />
                     </a>
