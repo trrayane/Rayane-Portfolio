@@ -20,29 +20,25 @@
       body {
         font-family: "Inter", Arial, sans-serif;
         color: var(--body);
-        font-size: 9.6px;
-        line-height: 1.46;
-        padding: 32px 40px;
+        font-size: 9.8px;
+        line-height: 1.5;
+        padding: 36px 42px;
         -webkit-print-color-adjust: exact;
       }
 
       /* Header */
-      .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; border-bottom: 2.5px solid var(--ink); padding-bottom: 12px; }
+      .head { border-bottom: 2.5px solid var(--ink); padding-bottom: 12px; }
       .name { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; color: var(--ink); text-transform: uppercase; }
-      .role { font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 2px; letter-spacing: 0.3px; }
-      .contact { margin-top: 7px; font-size: 9.2px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 3px 13px; max-width: 360px; }
+      .role { font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+      .contact { margin-top: 7px; font-size: 9.3px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 3px 13px; }
       .contact b { color: var(--ink); font-weight: 600; }
 
-      .qr { text-align: center; flex-shrink: 0; }
-      .qr svg { width: 68px; height: 68px; display: block; }
-      .qr .cap { font-size: 7px; color: var(--soft); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; font-weight: 600; }
-
       /* Sections */
-      section { margin-top: 13px; }
+      section { margin-top: 15px; }
       h2 {
         font-size: 9.5px; font-weight: 700; text-transform: uppercase;
         letter-spacing: 2px; color: var(--ink); padding-bottom: 4px;
-        border-bottom: 1px solid var(--line); margin-bottom: 7px;
+        border-bottom: 1px solid var(--line); margin-bottom: 8px;
       }
 
       .summary { color: var(--body); }
@@ -50,7 +46,7 @@
       /* Skills */
       .skill-row { display: flex; gap: 8px; margin-bottom: 2.5px; }
       .skill-row:last-child { margin-bottom: 0; }
-      .skill-cat { font-weight: 700; color: var(--ink); min-width: 90px; flex-shrink: 0; }
+      .skill-cat { font-weight: 700; color: var(--ink); min-width: 92px; flex-shrink: 0; }
       .skill-val { color: var(--muted); }
 
       /* Projects */
@@ -58,142 +54,138 @@
       .proj:last-child { margin-bottom: 0; }
       .proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
       .proj-title { font-weight: 700; font-size: 10.5px; color: var(--ink); }
-      .proj-stack { font-size: 8.2px; color: var(--soft); font-weight: 500; text-align: right; flex-shrink: 0; }
-      ul { list-style: none; margin-top: 2px; }
-      li { position: relative; padding-left: 11px; color: var(--body); margin-bottom: 1px; }
-      li::before { content: ""; position: absolute; left: 2px; top: 5.5px; width: 3px; height: 3px; background: var(--ink); border-radius: 50%; }
+      .proj-stack { font-size: 8.3px; color: var(--soft); font-weight: 500; text-align: right; flex-shrink: 0; }
+      .proj p { margin-top: 1px; }
       .lnk { color: var(--muted); font-weight: 500; }
 
-      .two-col { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; }
+      .two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
+      ul { list-style: none; margin-top: 2px; }
+      li { position: relative; padding-left: 11px; margin-bottom: 1.5px; }
+      li::before { content: ""; position: absolute; left: 2px; top: 5.5px; width: 3px; height: 3px; background: var(--ink); border-radius: 50%; }
       .ed .t { font-weight: 700; color: var(--ink); }
       .ed .s { color: var(--soft); }
       .ed .row { margin-bottom: 5px; }
 
-      .footer { margin-top: 13px; padding-top: 9px; border-top: 1px solid var(--line); text-align: center; font-size: 8px; color: var(--soft); letter-spacing: 0.5px; text-transform: uppercase; }
+      /* Bottom QR */
+      .qr-bottom { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+      .qr-bottom #qr-slot svg { width: 104px; height: 104px; display: block; }
+      .qr-meta .lab { font-size: 11px; font-weight: 700; color: var(--ink); }
+      .qr-meta .url { font-size: 10px; color: var(--muted); margin-top: 2px; }
+      .qr-meta .hint { font-size: 8.5px; color: var(--soft); margin-top: 4px; }
     </style>
   </head>
   <body>
     <div class="head">
-      <div>
-        <div class="name">Rayane Terki</div>
-        <div class="role">Full-Stack Engineer — Backend · AI · Security</div>
-        <div class="contact">
-          <span><b>rayaneterki55@gmail.com</b></span>
-          <span>+213 660 320 043</span>
-          <span>Algeria · Remote worldwide</span>
-          <span>github.com/trrayane</span>
-        </div>
-      </div>
-      <div class="qr">
-        <div id="qr-slot"></div>
-        <div class="cap">Scan · Portfolio</div>
+      <div class="name">Rayane Terki</div>
+      <div class="role">Full Stack Developer</div>
+      <div class="contact">
+        <span><b>rayaneterki55@gmail.com</b></span>
+        <span>+213 660 320 043</span>
+        <span>Algeria (open to remote)</span>
+        <span>github.com/trrayane</span>
       </div>
     </div>
 
     <section>
-      <h2>Summary</h2>
+      <h2>About Me</h2>
       <p class="summary">
-        Full-Stack Engineer focused on backend systems, AI integration and security. I design and ship
-        scalable, secure, high-performance applications for real production environments — and play CTFs
-        to sharpen offensive and defensive security skills.
+        Final year Computer Science student at USTHB and full stack developer. I mostly build web apps
+        and APIs with Node.js, Python and React, and I like adding AI features and working on security.
+        I also play CTFs in my free time.
       </p>
     </section>
 
     <section>
       <h2>Technical Skills</h2>
-      <div class="skill-row"><span class="skill-cat">Languages</span><span class="skill-val">JavaScript / TypeScript, Python, PHP, C, C++</span></div>
-      <div class="skill-row"><span class="skill-cat">Frontend</span><span class="skill-val">React, Next.js, React Native (Expo), Tailwind CSS, Vite</span></div>
+      <div class="skill-row"><span class="skill-cat">Languages</span><span class="skill-val">JavaScript, TypeScript, Python, PHP, C, C++</span></div>
+      <div class="skill-row"><span class="skill-cat">Frontend</span><span class="skill-val">React, Next.js, React Native, Tailwind CSS, Vite</span></div>
       <div class="skill-row"><span class="skill-cat">Backend</span><span class="skill-val">Node.js, NestJS, Express, FastAPI, Django, Laravel</span></div>
-      <div class="skill-row"><span class="skill-cat">Databases</span><span class="skill-val">PostgreSQL, MongoDB, MySQL, Redis, Prisma, GraphQL</span></div>
-      <div class="skill-row"><span class="skill-cat">DevOps</span><span class="skill-val">Docker, Nginx, GitHub Actions, AWS, Linux, Git, Vercel</span></div>
-      <div class="skill-row"><span class="skill-cat">AI &amp; Security</span><span class="skill-val">OpenAI API, LangChain, Gemini, TensorFlow · JWT/OAuth2, Burp Suite, Wireshark, Kali</span></div>
+      <div class="skill-row"><span class="skill-cat">Databases</span><span class="skill-val">PostgreSQL, MongoDB, MySQL, Redis, Prisma</span></div>
+      <div class="skill-row"><span class="skill-cat">DevOps</span><span class="skill-val">Docker, Nginx, GitHub Actions, AWS, Linux, Git</span></div>
+      <div class="skill-row"><span class="skill-cat">AI &amp; Security</span><span class="skill-val">OpenAI API, LangChain, Gemini, JWT, OAuth2, Burp Suite, Wireshark, Kali</span></div>
     </section>
 
     <section>
-      <h2>Selected Projects</h2>
+      <h2>Projects</h2>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">Healy — AI Health Platform</span>
-          <span class="proj-stack">React · Python · FastAPI · PostgreSQL · ML</span>
+          <span class="proj-title">Healy</span>
+          <span class="proj-stack">React, Python, FastAPI, PostgreSQL</span>
         </div>
-        <ul>
-          <li>AI-powered symptom tracking with ML recommendations, real-time consultations and a secure patient dashboard.</li>
-          <li>Appointment scheduling and end-to-end encrypted medical records.</li>
-        </ul>
+        <p>An AI health platform that tracks symptoms and gives suggestions, with a patient dashboard, appointment booking and encrypted records.</p>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">SummarAI — LLM Summarisation Workspace</span>
-          <span class="proj-stack">Python · FastAPI · LangChain · Gemini</span>
+          <span class="proj-title">SummarAI</span>
+          <span class="proj-stack">Python, FastAPI, LangChain, Gemini</span>
         </div>
-        <ul>
-          <li>Summariser for PDFs, docs and URLs with real-time SSE streaming, analytics dashboard and history. <span class="lnk">github.com/trrayane/SummarAI</span></li>
-        </ul>
+        <p>A web app that summarises PDFs, documents and URLs with LLMs. It shows the summary as it is generated and keeps a history. <span class="lnk">github.com/trrayane/SummarAI</span></p>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">Rayane Labs — E-commerce Platform (Web)</span>
-          <span class="proj-stack">React · Express · Supabase · JWT · Docker</span>
+          <span class="proj-title">Rayane Labs</span>
+          <span class="proj-stack">React, Express, Supabase, Docker</span>
         </div>
-        <ul>
-          <li>Full-stack store: advanced filtering, JWT/bcrypt auth, rate-limited APIs, cash-on-delivery across 58 wilayas. <span class="lnk">github.com/trrayane/Rayane-ecomm</span></li>
-        </ul>
+        <p>An online store for PC peripherals with search and filters, JWT login, an admin panel and cash on delivery across the 58 wilayas. <span class="lnk">github.com/trrayane/Rayane-ecomm</span></p>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">E-commerce Mobile App</span>
-          <span class="proj-stack">React Native · Expo · REST API</span>
+          <span class="proj-title">Ecommerce Mobile App</span>
+          <span class="proj-stack">React Native, Expo</span>
         </div>
-        <ul>
-          <li>Cross-platform shopping app: product catalog, cart, secure checkout, push notifications and order tracking.</li>
-        </ul>
+        <p>A mobile shopping app with a product catalogue, cart, checkout and order tracking.</p>
       </div>
 
       <div class="proj">
         <div class="proj-head">
-          <span class="proj-title">Developer Portfolio</span>
-          <span class="proj-stack">React · Vite · Tailwind CSS</span>
+          <span class="proj-title">Portfolio</span>
+          <span class="proj-stack">React, Vite, Tailwind</span>
         </div>
-        <ul>
-          <li>Responsive portfolio with light/dark mode, animated UI and a contact form. <span class="lnk">rayane-portfolio-eight.vercel.app</span></li>
-        </ul>
+        <p>My personal site with light and dark mode and a working contact form. <span class="lnk">rayane-portfolio-eight.vercel.app</span></p>
       </div>
     </section>
 
     <section>
       <h2>CTF &amp; Hackathons</h2>
-      <ul>
-        <li>Active CTF competitor — web exploitation, reverse engineering, cryptography and forensics.</li>
-        <li>Participated in <b>MCTF</b>, <b>GHCTF</b>, <b>EXHA</b> and other national / online CTF events &amp; hackathons.</li>
-      </ul>
+      <p>
+        I play CTFs in web, reverse engineering, crypto and forensics. I have taken part in
+        <b>MCTF</b>, <b>GHCTF</b>, <b>EXHA</b> and other Algerian and online CTFs and hackathons.
+      </p>
     </section>
 
     <div class="two-col">
       <section>
         <h2>Also Built</h2>
         <ul>
-          <li><b>2048-SDL</b> — native 2048 game in C with SDL2 (animations, score, clean game loop).</li>
-          <li><b>Project Management Tool</b> — real-time Kanban with WebSockets &amp; RBAC (Next.js, Socket.io, MongoDB, Redis).</li>
-          <li><b>Assembly Calculator</b> — full arithmetic calculator in x86 Assembly.</li>
+          <li>A 2048 game written in C with SDL2.</li>
+          <li>A team task manager with realtime Kanban boards (Next.js, Socket.io, MongoDB, Redis).</li>
+          <li>A calculator written in x86 Assembly.</li>
         </ul>
       </section>
       <section class="ed">
         <h2>Education &amp; Languages</h2>
         <div class="row">
-          <div class="t">Licence in Computer Science — L3 (final year)</div>
-          <div class="s">USTHB (Univ. of Sciences &amp; Technology Houari Boumediene), Algiers</div>
+          <div class="t">Licence in Computer Science (L3, final year)</div>
+          <div class="s">USTHB, Algiers</div>
         </div>
         <div class="row">
           <div class="t">Languages</div>
-          <div class="s">Arabic (native), English, French</div>
+          <div class="s">Arabic, English, French</div>
         </div>
       </section>
     </div>
 
-    <div class="footer">Transparent · Methodical · Built to last</div>
+    <div class="qr-bottom">
+      <div id="qr-slot"></div>
+      <div class="qr-meta">
+        <div class="lab">My portfolio</div>
+        <div class="url">rayane-portfolio-eight.vercel.app</div>
+        <div class="hint">Scan the code to open it.</div>
+      </div>
+    </div>
   </body>
 </html>
